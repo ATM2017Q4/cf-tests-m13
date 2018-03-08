@@ -2,9 +2,8 @@ package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.AjaxContentWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.Wait;
 
+import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -48,14 +47,14 @@ public class FiltersBlock extends HtmlElement {
 
     public void chooseNonStopFlights() {
         LoggerUtil.info("Waiting for the search results page to load");
-        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
         LoggerUtil.info("Unchecking one stop checkbox");
         oneStop.click();
-        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
         LoggerUtil.info("Unchecking two stops checkbox");
         twoStops.click();
         LoggerUtil.info("Waiting for the page to update according to the chosen filters");
-        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
 
     }
 
@@ -73,7 +72,7 @@ public class FiltersBlock extends HtmlElement {
                 .build()
                 .perform();
         LoggerUtil.info("Waiting for the page to update according to the chosen duration");
-        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
 
     }
 

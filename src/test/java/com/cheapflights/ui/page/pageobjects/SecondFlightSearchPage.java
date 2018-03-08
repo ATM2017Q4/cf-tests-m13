@@ -2,11 +2,9 @@ package com.cheapflights.ui.page.pageobjects;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.AjaxContentWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.InvisibilityWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.Wait;
 
+import com.cheapflights.ui.utils.webdrivertools.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -53,14 +51,14 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
     public SecondFlightSearchPage chooseNonStopFlights() {
         try {
             LoggerUtil.info("Waiting for the search results page to load");
-            new VisibilityWaitDecorator(new Wait(driver, cheapestFlight, 300, 10)).setUpWait();
+            WebDriverToolsDecorator.waitForVisibilityFluently(driver, cheapestFlight, 300, 10);
         } catch (org.openqa.selenium.NoSuchElementException e) {
             LoggerUtil.error("Driver was unable to locate the element: either the page didn't load properly or the element doesn't exist");
-            new VisibilityWaitDecorator(new Wait(driver, cheapestFlight, 150, 10)).setUpWait();
+            WebDriverToolsDecorator.waitForVisibilityFluently(driver, cheapestFlight, 150, 10);
         } finally {
             LoggerUtil.info("Opening stops filter tab");
             stopsFilter.click();
-            new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+            WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
             LoggerUtil.info("Unchecking one stop checkbox");
             oneStop.click();
             LoggerUtil.info("Unchecking multi stops checkbox");
@@ -90,7 +88,7 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
         LoggerUtil.info("Closing filters tab");
         closeButton.click();
         LoggerUtil.info("Waiting for page to update in accordance with the chosen filters");
-        new InvisibilityWaitDecorator(new Wait(driver, updateIndicator, 10)).setUpWait();
+        WebDriverToolsDecorator.waitForInvisibilityExplicitly(driver, updateIndicator, 10);
     }
 
     @Override

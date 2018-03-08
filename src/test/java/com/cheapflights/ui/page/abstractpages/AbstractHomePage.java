@@ -2,9 +2,8 @@ package com.cheapflights.ui.page.abstractpages;
 
 import com.cheapflights.ui.page.factory.SearchPageFactory;
 import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.Wait;
 
+import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,6 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public abstract class AbstractHomePage {
-
 
     protected static WebDriver driver;
 
@@ -55,7 +53,7 @@ public abstract class AbstractHomePage {
             }
         }
         LoggerUtil.info("Waiting for page to load before returning the correct one");
-        new VisibilityWaitDecorator(new Wait(driver, driver.findElement(logoXpath), 40, 5)).setUpWait();
+        WebDriverToolsDecorator.waitForVisibilityFluently(driver, driver.findElement(logoXpath), 40, 5);
         return SearchPageFactory.getCorrectPage(driver);
     }
 

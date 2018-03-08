@@ -3,10 +3,9 @@ package com.cheapflights.ui.page.pageobjects;
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.blocks.FiltersBlock;
 import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.AttributeWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.InvisibilityWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.Wait;
 
+import com.cheapflights.ui.utils.webdrivertools.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,7 +30,7 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
     public FirstFlightSearchPage chooseNonStopFlights() {
         try {
             LoggerUtil.info("Waiting for the progress bar to disappear");
-            new InvisibilityWaitDecorator(new Wait(driver, progressBar, 100)).setUpWait();
+            WebDriverToolsDecorator.waitForInvisibilityExplicitly(driver, progressBar, 100);
         } catch (org.openqa.selenium.TimeoutException e) {
             LoggerUtil.error("Driver was unable to locate the element during the specified amount of time", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
@@ -54,7 +53,7 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
     public FirstFlightSearchPage sortByCheapest() {
         LoggerUtil.info("Sorting the flight by cheapest");
         filtersBlock.sortByCheapest();
-        new AttributeWaitDecorator(new Wait(driver, loadComplete, "class", "resultsListCover tl", 20)).setUpWait();
+        WebDriverToolsDecorator.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
         return this;
     }
 

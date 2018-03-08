@@ -9,7 +9,7 @@ public class NewFirefoxDriver extends AbstractWebDriver {
     @Override
     public WebDriver getDriver() {
         FirefoxOptions options = new FirefoxOptions();
-        System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "./src/test/resources/geckodriver");
         options.addArguments("start-maximized");
         options.setProfile(new FirefoxProfile());
         FirefoxDriver driver = new FirefoxDriver(options);

@@ -2,9 +2,8 @@ package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
-import com.cheapflights.ui.utils.webdrivertools.Wait;
 
+import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,7 @@ import ru.yandex.qatools.htmlelements.element.Button;
 
 @Name("Search Form")
 @FindBy(xpath = "//div[@class=\"searchFormWrapper \"]")
-public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
+public class PrefilledSearchFormBlock extends BaseSearchFormBlock {
 
     private WebDriver driver = AbstractHomePage.getDriver();
 
@@ -59,7 +58,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
         origin.sendKeys(from);
 
         LoggerUtil.info("Waiting for the dropdown to appear");
-        new VisibilityWaitDecorator(new Wait(driver, originOptions, 2, 1)).setUpWait();
+        WebDriverToolsDecorator.waitForVisibilityFluently(driver, originOptions, 2, 1);
 
         LoggerUtil.info("Choosing the origin and all airports");
         origin.sendKeys(Keys.ENTER);
@@ -72,7 +71,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
         LoggerUtil.info("Sending " + to + "as destination name");
         destination.sendKeys(to);
         LoggerUtil.info("Waiting for the dropdown to appear");
-        new VisibilityWaitDecorator(new Wait(driver, destinationOptions, 2, 1)).setUpWait();
+        WebDriverToolsDecorator.waitForVisibilityFluently(driver, destinationOptions, 2, 1);
         LoggerUtil.info("Choosing the destination and all airports");
         destination.sendKeys(Keys.ENTER);
     }
@@ -82,7 +81,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
         LoggerUtil.info("Clicking in the departure date field");
         departureDateField.click();
         LoggerUtil.info("Waiting for the date picker to appear");
-        new VisibilityWaitDecorator(new Wait(driver, datePicker, 10, 1)).setUpWait();
+        WebDriverToolsDecorator.waitForVisibilityFluently(driver, datePicker, 10, 1);
         LoggerUtil.info("Searching for " + month + "and selecting dates of departure and arrival");
         datePickerBlock.searchDates(month, startDate, endDate);
     }
