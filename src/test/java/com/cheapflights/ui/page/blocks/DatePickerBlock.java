@@ -1,17 +1,18 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
+import com.cheapflights.ui.utils.LoggerUtil;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import ru.yandex.qatools.htmlelements.annotations.Name;
 
+import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Name("Date picker")
 @FindBy(xpath = "//div[@class='contentContainer']")
@@ -33,14 +34,12 @@ public class DatePickerBlock extends HtmlElement {
     @FindBy(xpath = "(//div[@class='weeks'])[3]//div[@class='day']")
     private List<WebElement> dates;
 
-    protected Logger logger = Logger.getLogger(this.getClass().getName());
-
     public void searchDates(String month, String startDate, String endDate) {
-        logger.info("Clicking the next button until finding the searched month");
+        LoggerUtil.info("Clicking the next button until finding the searched month");
         while (!(isVisible(monthColumn, monthName, month))) {
             nextArrow.click();
         }
-        logger.info("Selecting the intended dates");
+        LoggerUtil.info("Selecting the intended dates");
         By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
         List<WebElement> duration = dates;
         for (WebElement day : duration) {

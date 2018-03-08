@@ -2,16 +2,13 @@ package com.cheapflights.ui.page.abstractpages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
-
-import java.util.logging.Logger;
 
 public abstract class AbstractSearchPage {
 
     protected static WebDriver driver;
-
-    protected Logger logger = Logger.getLogger(this.getClass().getName());
 
     public AbstractSearchPage(WebDriver driver) {
         this.driver = driver;
