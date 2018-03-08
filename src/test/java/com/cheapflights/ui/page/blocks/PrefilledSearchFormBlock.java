@@ -1,8 +1,10 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.VisibilityWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.annotations.Name;
@@ -11,6 +13,8 @@ import ru.yandex.qatools.htmlelements.element.Button;
 @Name("Search Form")
 @FindBy(xpath = "//div[@class=\"searchFormWrapper \"]")
 public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
+
+    private WebDriver driver = AbstractHomePage.getDriver();
 
     @Name("Origin typeahead dropdown")
     @FindBy(xpath = "//div[contains(@id, 'origin-smartbox-dropdown')]")
@@ -44,34 +48,48 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock{
 
     @Override
     public void searchOrigin(String from) {
+        logger.info("Clicking in the origin field and clearing it");
         origin.click();
         origin.clear();
+        logger.info("Sending " + from + "as origin name");
         origin.sendKeys(from);
-        WebDriverTools.waitForVisibilityFluently(AbstractHomePage.getDriver(), originOptions, 2, 1);
+        logger.info("Waiting for the dropdown to appear");
+        new VisibilityWaitDecorator(new Wait(driver, originOptions, 2, 1)).setUpWait();
+        logger.info("Choosing the origin and all airports");
         origin.sendKeys(Keys.ENTER);
     }
 
     @Override
     public void searchDestination(String to) {
+        logger.info("Clicking in the destination field and clearing it");
         destination.click();
+        logger.info("Sending " + to + "as destination name");
         destination.sendKeys(to);
-        WebDriverTools.waitForVisibilityFluently(AbstractHomePage.getDriver(), destinationOptions, 2, 1);
+        logger.info("Waiting for the dropdown to appear");
+        new VisibilityWaitDecorator(new Wait(driver, destinationOptions, 2, 1)).setUpWait();
+        logger.info("Choosing the destination and all airports");
         destination.sendKeys(Keys.ENTER);
     }
 
     @Override
     public void searchDates(String month, String startDate, String endDate) {
+        logger.info("Clicking in the departure date field");
         departureDateField.click();
-        WebDriverTools.waitForVisibilityFluently(AbstractHomePage.getDriver(), datePicker, 10, 1);
+        logger.info("Waiting for the date picker to appear");
+        new VisibilityWaitDecorator(new Wait(driver, datePicker, 10, 1)).setUpWait();
+        logger.info("Searching for " + month + "and selecting dates of departure and arrival");
         datePickerBlock.searchDates(month, startDate, endDate);
     }
 
     @Override
     public void increaseNumberOfAdults(int number) {
+        logger.info("Opening the form with the number of adults");
         travellersNumber.click();
+        logger.info("Increasing the number of adults to " + number);
         for (int i = 1; i < number; i++) {
             adultsPlus.click();
         }
+        logger.info("Closing the form");
         closeButton.click();
     }
 

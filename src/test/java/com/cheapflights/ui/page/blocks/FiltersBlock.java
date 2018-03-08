@@ -1,7 +1,8 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
-import com.cheapflights.ui.utils.WebDriverTools;
+import com.cheapflights.ui.utils.webdrivertools.AjaxContentWaitDecorator;
+import com.cheapflights.ui.utils.webdrivertools.Wait;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -11,10 +12,12 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.CheckBox;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
+import java.util.logging.Logger;
+
 
 @Name("Filters container")
-@FindBy(xpath="//div[@class='filterListContainer']")
-public class FiltersBlock extends HtmlElement{
+@FindBy(xpath = "//div[@class='filterListContainer']")
+public class FiltersBlock extends HtmlElement {
 
     @Name("One stop checkbox")
     @FindBy(name = "2")
@@ -42,12 +45,18 @@ public class FiltersBlock extends HtmlElement{
 
     private SortDropDownBlock sortDropDownBlock;
 
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
+
     public void chooseNonStopFlights() {
-            WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-            oneStop.click();
-            WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-            twoStops.click();
-            WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+        logger.info("Waiting for the search results page to load");
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        logger.info("Unchecking one stop checkbox");
+        oneStop.click();
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
+        logger.info("Unchecking two stops checkbox");
+        twoStops.click();
+        logger.info("Waiting for the page to update according to the chosen filters");
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
 
     }
 
@@ -57,25 +66,26 @@ public class FiltersBlock extends HtmlElement{
         ((JavascriptExecutor) AbstractSearchPage.getDriver()).executeScript("arguments[0].scrollIntoView(true);", slider);
         Dimension size = progress.getSize();
         int sliderWidth = size.getWidth();
-
+        logger.info("Modifying flight duration");
         Actions builder = new Actions(AbstractSearchPage.getDriver());
         builder.moveToElement(slider).click()
                 .dragAndDropBy
                         (slider, -((sliderWidth / divider) * multiplier), 0)
                 .build()
                 .perform();
-        WebDriverTools.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+        logger.info("Waiting for the page to update according to the chosen duration");
+        new AjaxContentWaitDecorator(new Wait(AbstractSearchPage.getDriver())).setUpWait();
 
     }
 
     public void sortByCheapest() {
         if (!(sortSectionValue.getText().equals("Cheapest"))) {
+            logger.info("Opening sorting drop-down");
             sortSection.click();
             sortDropDownBlock.sortByCheapest();
         }
 
     }
-
 
 
 }

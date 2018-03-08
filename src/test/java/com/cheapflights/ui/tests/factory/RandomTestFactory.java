@@ -17,7 +17,7 @@ public class RandomTestFactory {
     public Object[] createInstance() {
         List<String> files = FileSearchUtil.getDirectoryFiles(folderPath, extension);
         Object[] object = new Object[]{
-                new CheapFlightsTest(JsonUtil.readJson(files.get(RandomUtil.generateRandom(0, files.size())), TravelInfo.class))
+                new CheapFlightsTest(JsonUtil.getInstance().readJson(files.get(RandomUtil.generateRandom(0, files.size())), TravelInfo.class))
         };
         return object;
     }

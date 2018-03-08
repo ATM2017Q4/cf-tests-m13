@@ -5,6 +5,8 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
+import java.util.logging.Logger;
+
 public abstract class BaseSearchFormBlock extends HtmlElement{
 
     @Name("Origin box")
@@ -14,6 +16,8 @@ public abstract class BaseSearchFormBlock extends HtmlElement{
     @Name("Destination box")
     @FindBy(name = "destination")
     protected TextInput destination;
+
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
 
     public abstract void searchOrigin(String from);
     public abstract void searchDestination(String to);

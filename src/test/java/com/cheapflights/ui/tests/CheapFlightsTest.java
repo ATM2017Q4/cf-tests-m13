@@ -1,11 +1,12 @@
 package com.cheapflights.ui.tests;
 
+import com.cheapflights.common.driver.AbstractWebDriver;
+import com.cheapflights.common.driver.DriverFactory;
 import com.cheapflights.ui.entities.TravelInfo;
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 import com.cheapflights.ui.page.factory.HomePageFactory;
 import com.cheapflights.ui.page.factory.SearchPageFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -27,8 +28,8 @@ public class CheapFlightsTest {
 
     @BeforeClass(alwaysRun = true)
     public void launchBrowser() {
-        System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
-        driver = new FirefoxDriver();
+        AbstractWebDriver instance = DriverFactory.getDriverFromFactory("firefox");
+        driver = instance.getDriver();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();

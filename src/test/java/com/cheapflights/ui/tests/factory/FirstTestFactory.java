@@ -17,7 +17,7 @@ public class FirstTestFactory {
     public Object[] createInstance() {
         List<String> files = FileSearchUtil.getDirectoryFiles(folderPath, extension);
         Object[] objects = new Object[]{
-                new CheapFlightsTest(JsonUtil.readJson(files.get(0), TravelInfo.class)),
+                new CheapFlightsTest(JsonUtil.getInstance().readJson(files.get(0), TravelInfo.class)),
         };
         return objects;
     }

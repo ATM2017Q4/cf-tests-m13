@@ -11,6 +11,7 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Name("Date picker")
 @FindBy(xpath = "//div[@class='contentContainer']")
@@ -32,12 +33,14 @@ public class DatePickerBlock extends HtmlElement {
     @FindBy(xpath = "(//div[@class='weeks'])[3]//div[@class='day']")
     private List<WebElement> dates;
 
-    public void searchDates(String month, String startDate, String endDate) {
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
 
+    public void searchDates(String month, String startDate, String endDate) {
+        logger.info("Clicking the next button until finding the searched month");
         while (!(isVisible(monthColumn, monthName, month))) {
             nextArrow.click();
         }
-
+        logger.info("Selecting the intended dates");
         By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
         List<WebElement> duration = dates;
         for (WebElement day : duration) {
