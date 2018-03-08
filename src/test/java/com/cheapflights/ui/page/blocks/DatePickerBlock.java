@@ -4,7 +4,6 @@ import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 import com.cheapflights.ui.utils.LoggerUtil;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -46,8 +45,6 @@ public class DatePickerBlock extends HtmlElement {
             if (day.getText().equals(startDate)) {
                 Actions chooser = new Actions(AbstractHomePage.getDriver());
                 chooser.click(day)
-//                        .sendKeys(Keys.TAB)
-//                        .moveToElement(AbstractHomePage.getDriver().findElement(endDateLocator))
                         .click(AbstractHomePage.getDriver().findElement(By.xpath("//div[contains(text(), \"Return\")]")))
                         .click(AbstractHomePage.getDriver().findElement(endDateLocator))
                         .build().perform();
@@ -55,7 +52,7 @@ public class DatePickerBlock extends HtmlElement {
             }
         }
     }
-    
+
     public boolean isVisible(WebElement monthColumn, WebElement monthName, String text) {
         boolean result;
         try {
