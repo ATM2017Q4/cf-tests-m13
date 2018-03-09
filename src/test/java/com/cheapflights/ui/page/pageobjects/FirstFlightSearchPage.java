@@ -4,12 +4,14 @@ import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.blocks.FiltersBlock;
 import com.cheapflights.ui.utils.LoggerUtil;
 
-import com.cheapflights.ui.utils.webdrivertools.WebDriverTools;
 import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.CheckBox;
 
 public class FirstFlightSearchPage extends AbstractSearchPage {
 
@@ -30,13 +32,18 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
     public FirstFlightSearchPage chooseNonStopFlights() {
         try {
             LoggerUtil.info("Waiting for the progress bar to disappear");
+
+            driver.findElement(By.xpath("//body")).sendKeys(Keys.ESCAPE);
             WebDriverToolsDecorator.waitForInvisibilityExplicitly(driver, progressBar, 100);
         } catch (org.openqa.selenium.TimeoutException e) {
             LoggerUtil.error("Driver was unable to locate the element during the specified amount of time", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
             LoggerUtil.error("Driver was not able to find the element by the specified locator." + e);
         } finally {
+
             LoggerUtil.info("Choosing non stop flights");
+            WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+
             filtersBlock.chooseNonStopFlights();
         }
         return this;

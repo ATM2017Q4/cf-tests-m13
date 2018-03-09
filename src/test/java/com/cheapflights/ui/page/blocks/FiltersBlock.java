@@ -4,9 +4,7 @@ import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.utils.LoggerUtil;
 
 import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
@@ -19,12 +17,12 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 @FindBy(xpath = "//div[@class='filterListContainer']")
 public class FiltersBlock extends HtmlElement {
 
-    @Name("One stop checkbox")
-    @FindBy(name = "2")
+    @Name("Two stops checkbox")
+    @FindBy(xpath = "//label[@data-name=\"2\"]")
     private CheckBox twoStops;
 
-    @Name("Two stops checkbox")
-    @FindBy(name = "1")
+    @Name("One stop checkbox")
+    @FindBy(xpath = "//label[@data-name=\"1\"]")
     private CheckBox oneStop;
 
     @Name("Max flight duration sider")
@@ -51,11 +49,14 @@ public class FiltersBlock extends HtmlElement {
         LoggerUtil.info("Unchecking one stop checkbox");
         oneStop.click();
         WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-        LoggerUtil.info("Unchecking two stops checkbox");
-        twoStops.click();
-        LoggerUtil.info("Waiting for the page to update according to the chosen filters");
-        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-
+        try {
+            LoggerUtil.info("Unchecking two stops checkbox");
+            twoStops.click();
+            LoggerUtil.info("Waiting for the page to update according to the chosen filters");
+        } catch (NoSuchElementException e) {
+            WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+            LoggerUtil.error("There are no flights with 2 or more stops");
+        }
     }
 
     public void modifyDuration(int divider, int multiplier) {
