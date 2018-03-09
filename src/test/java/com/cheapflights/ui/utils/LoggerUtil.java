@@ -1,11 +1,13 @@
 package com.cheapflights.ui.utils;
 
-
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 
 public class LoggerUtil {
-    private static Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getRootLogger();
 
     public static void error(String msg) {
         logger.error(msg);
@@ -30,6 +32,4 @@ public class LoggerUtil {
     public static void trace(String msg) {
         logger.trace(msg);
     }
-    
-
 }

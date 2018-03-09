@@ -1,6 +1,6 @@
 package com.cheapflights.ui.utils.webdrivertools;
-
 import com.cheapflights.ui.utils.LoggerUtil;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

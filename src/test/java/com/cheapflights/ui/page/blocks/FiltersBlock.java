@@ -1,10 +1,14 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
-import com.cheapflights.ui.utils.LoggerUtil;
 
+import com.cheapflights.ui.utils.LoggerUtil;
 import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
-import org.openqa.selenium.*;
+
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 

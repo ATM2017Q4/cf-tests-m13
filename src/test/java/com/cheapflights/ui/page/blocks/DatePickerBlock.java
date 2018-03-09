@@ -1,6 +1,7 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
+
 import com.cheapflights.ui.utils.LoggerUtil;
 
 import org.openqa.selenium.By;

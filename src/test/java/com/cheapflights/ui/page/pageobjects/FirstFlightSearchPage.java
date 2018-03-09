@@ -2,16 +2,15 @@ package com.cheapflights.ui.page.pageobjects;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.blocks.FiltersBlock;
-import com.cheapflights.ui.utils.LoggerUtil;
 
+import com.cheapflights.ui.utils.LoggerUtil;
 import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.yandex.qatools.htmlelements.annotations.Name;
-import ru.yandex.qatools.htmlelements.element.CheckBox;
 
 public class FirstFlightSearchPage extends AbstractSearchPage {
 
@@ -27,6 +26,7 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
     private By loadComplete = By.xpath("//div[@class='resultsContainer']/div[contains(@id, 'cover')]");
 
     private static String cheapestFlightXpath = "(//div[@class='above-button']//a[@class='booking-link']/span[@class='price option-text'])[1]";
+
 
     @Override
     public FirstFlightSearchPage chooseNonStopFlights() {

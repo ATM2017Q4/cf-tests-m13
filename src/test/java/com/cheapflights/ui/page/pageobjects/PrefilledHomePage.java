@@ -14,6 +14,7 @@ public class PrefilledHomePage extends AbstractHomePage {
 
     private PrefilledSearchFormBlock searchForm;
 
+
     @Override
     public PrefilledHomePage chooseOrigin(String from) {
         LoggerUtil.info("Setting the origin to " + from);

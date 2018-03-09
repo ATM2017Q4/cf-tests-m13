@@ -1,10 +1,10 @@
 package com.cheapflights.ui.page.pageobjects;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
-import com.cheapflights.ui.utils.LoggerUtil;
 
-import com.cheapflights.ui.utils.webdrivertools.WebDriverTools;
+import com.cheapflights.ui.utils.LoggerUtil;
 import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;

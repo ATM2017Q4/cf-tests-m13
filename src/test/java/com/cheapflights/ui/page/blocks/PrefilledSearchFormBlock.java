@@ -1,8 +1,8 @@
 package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.utils.LoggerUtil;
 
+import com.cheapflights.ui.utils.LoggerUtil;
 import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
