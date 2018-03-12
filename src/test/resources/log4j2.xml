@@ -31,11 +31,16 @@
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingFile>
+        <ReportPortalLog4j2Appender name="ReportPortalAppender">
+            <PatternLayout
+                    pattern="%d [%t] %-5level %logger{36} - %msg%n%throwable"/>
+        </ReportPortalLog4j2Appender>
     </Appenders>
     <Loggers>
         <Root level="debug">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="ReportPortalAppender" />
         </Root>
     </Loggers>
 </Configuration>

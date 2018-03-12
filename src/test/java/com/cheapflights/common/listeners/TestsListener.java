@@ -19,12 +19,11 @@ public class TestsListener implements ITestListener {
     }
 
     public void onTestSuccess(ITestResult iTestResult) {
-        logger.info(getTestMethodName(iTestResult) + " passed.");
-        BrowserUtils.takeScreenshot(AbstractSearchPage.getDriver());
+        logger.info("The test passed successfully");
     }
 
     public void onTestFailure(ITestResult iTestResult) {
-        logger.info("The execution of the test " + getTestMethodName(iTestResult) + " failed. Please, see the screenshot for more info.");
+        logger.info("The test " + getTestMethodName(iTestResult) + " failed. The screenshot was saved in ./target/screenshots");
         BrowserUtils.takeScreenshot(AbstractSearchPage.getDriver());
 
     }

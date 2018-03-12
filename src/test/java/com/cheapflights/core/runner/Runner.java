@@ -5,9 +5,11 @@ import com.cheapflights.common.util.Settings;
 import com.cheapflights.ui.tests.factory.AllTestsFactory;
 import com.cheapflights.ui.tests.factory.FirstTestFactory;
 import com.cheapflights.ui.tests.factory.RandomTestFactory;
+import com.epam.reportportal.testng.ReportPortalTestNGListener;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.testng.ITestNGListener;
+
 import org.testng.TestNG;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Runner {
     public static void main(String[] args) {
         Settings settings = new Settings();
         CmdLineParser parser = new CmdLineParser(settings);
+
         try {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
@@ -26,8 +29,11 @@ public class Runner {
         TestNG testNG = new TestNG();
         List<Class<? extends ITestNGListener>> listener = new ArrayList<>();
         listener.add(TestsListener.class);
-        testNG.setDefaultSuiteName("Cheapest Flight Test");
+        listener.add(ReportPortalTestNGListener.class);
+        testNG.setDefaultSuiteName("Finding cheapest flight");
         testNG.setListenerClasses(listener);
+
+
         if (settings.isFirstTest()) {
             testNG.setTestClasses(new Class[]{FirstTestFactory.class});
         } else if (settings.isAllTests()) {

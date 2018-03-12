@@ -7,6 +7,7 @@ import com.cheapflights.ui.utils.BrowserUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -71,17 +72,17 @@ public class FiltersBlock extends HtmlElement {
     public void modifyDuration(int divider, int multiplier) {
         //Here Javascript is used as a workaround as moveToElement doesn't scroll the element into view in ForeFox and MoveTargetOutOfBoundsException is thrown
         //https://github.com/mozilla/geckodriver/issues/776
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", slider);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", BrowserUtils.highlightElement(driver, slider));
         Dimension size = progress.getSize();
         int sliderWidth = size.getWidth();
 
         logger.debug("Modifying flight duration");
         Actions builder = new Actions(driver);
-
-        builder.moveToElement(slider)
+        //BrowserUtils.highlightElement(driver, slider);
+        builder.moveToElement(BrowserUtils.highlightElement(driver, slider))
                 .click()
                 .dragAndDropBy
-                        (slider, -((sliderWidth / divider) * multiplier), 0)
+                        (BrowserUtils.highlightElement(driver, slider), -((sliderWidth / divider) * multiplier), 0)
                 .build()
                 .perform();
         logger.debug("Waiting for the page to update according to the chosen duration");

@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 public class BrowserUtils {
 
-    private static WebDriver driver;
-
     private static Logger logger = LogManager.getLogger();
 
 

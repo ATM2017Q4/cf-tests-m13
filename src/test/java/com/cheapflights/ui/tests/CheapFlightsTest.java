@@ -30,6 +30,7 @@ public class CheapFlightsTest {
     public CheapFlightsTest(TravelInfo travelInfo) {
         this.travelInfo = travelInfo;
     }
+
     protected Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
 
     @BeforeClass(alwaysRun = true)
@@ -68,14 +69,6 @@ public class CheapFlightsTest {
 
     }
 
-    @AfterMethod
-    public void tearDown(ITestResult iTestResult) {
-        if (ITestResult.FAILURE == iTestResult.getStatus()) {
-            logger.info("The test execution failed. The screenshot was saved in ./target/screenshots");
-            BrowserUtils.takeScreenshot(driver);
-
-        }
-    }
 
     @AfterClass(description = "Close browser", alwaysRun = true)
     public void tearDown() {
