@@ -65,12 +65,12 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.13.1</version>
+            <version>6.14.2</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.8.1</version>
+            <version>3.11.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/args4j/args4j -->
         <dependency>
