@@ -57,14 +57,13 @@ public class FiltersBlock extends HtmlElement {
 
         logger.debug("Unchecking one stop checkbox");
         BrowserUtils.click(driver, oneStop);
-
         BrowserUtils.waitForJSandJQueryToLoad(driver);
         try {
             logger.debug("Unchecking two stops checkbox");
             BrowserUtils.click(driver, twoStops);
             logger.debug("Waiting for the page to update according to the chosen filters");
-        } catch (NoSuchElementException e) {
             BrowserUtils.waitForJSandJQueryToLoad(driver);
+        } catch (NoSuchElementException e) {
             logger.error("There are no flights with 2 or more stops");
         }
     }

@@ -28,9 +28,9 @@ public class Runner {
         }
         TestNG testNG = new TestNG();
         List<Class<? extends ITestNGListener>> listener = new ArrayList<>();
-        listener.add(TestsListener.class);
+        //listener.add(TestsListener.class);
         listener.add(ReportPortalTestNGListener.class);
-        testNG.setDefaultSuiteName("Finding cheapest flight");
+        testNG.setDefaultSuiteName("Finding the cheapest flight");
         testNG.setListenerClasses(listener);
 
 

@@ -67,8 +67,11 @@ public class BrowserUtils {
 
     public static void takeScreenshot(WebDriver driver) {
         try {
+            String path = "target/screenshots/";
             File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(src, new File("target/screenshots/" + System.nanoTime() + ".png"));
+            String pathName = path + System.nanoTime() + ".png";
+            FileUtils.copyFile(src, new File(pathName));
+            logger.info("RP_MESSAGE#FILE#{}#{}", pathName, "Refer to the screenshot with the following name " + pathName + " for more details");
         } catch (IOException e) {
             logger.error("Failure to take a screenshot" + e.getMessage(), e);
         }
@@ -92,10 +95,10 @@ public class BrowserUtils {
 
     }
 
-    public static void sendKeys(WebDriver driver, WebElement element, CharSequence... keysToSend){
-        highlightElement(driver, element);
-        element.sendKeys(keysToSend);
-        unhighlightElement(driver, element);
-    }
+//    public static void sendKeys(WebDriver driver, WebElement element, CharSequence... keysToSend){
+//        highlightElement(driver, element);
+//        element.sendKeys(keysToSend);
+//        unhighlightElement(driver, element);
+//    }
 }
 

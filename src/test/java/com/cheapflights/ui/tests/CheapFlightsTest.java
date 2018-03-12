@@ -4,6 +4,7 @@ import com.cheapflights.common.driver.AbstractWebDriver;
 import com.cheapflights.common.driver.DriverFactory;
 import com.cheapflights.ui.entities.TravelInfo;
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
+import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.factory.HomePageFactory;
 import com.cheapflights.ui.page.factory.SearchPageFactory;
 import com.cheapflights.ui.utils.BrowserUtils;
@@ -69,6 +70,11 @@ public class CheapFlightsTest {
 
     }
 
+    @AfterMethod
+    public void tearDown(ITestResult iTestResult) {
+        logger.info("The test failed. The screenshot was saved in ./target/screenshots");
+        BrowserUtils.takeScreenshot(driver);
+    }
 
     @AfterClass(description = "Close browser", alwaysRun = true)
     public void tearDown() {
