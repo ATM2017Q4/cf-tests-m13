@@ -1,0 +1,70 @@
+2018-03-10 19:44:07 INFO Setting the origin to Moscow
+2018-03-10 19:44:07 INFO Clicking in the origin field and clearing it
+2018-03-10 19:44:08 INFO Sending Moscowas origin name
+2018-03-10 19:44:08 INFO Waiting for the dropdown to appear
+2018-03-10 19:44:08 INFO Choosing the origin and all airports
+2018-03-10 19:44:08 INFO Setting the destination to Tokyo
+2018-03-10 19:44:08 INFO Clicking in the destination field and clearing it
+2018-03-10 19:44:08 INFO Sending Tokyoas destination name
+2018-03-10 19:44:08 INFO Waiting for the dropdown to appear
+2018-03-10 19:44:08 INFO Choosing the destination and all airports
+2018-03-10 19:44:09 INFO Choosing the dates of departure and arrival
+2018-03-10 19:44:09 INFO Clicking in the departure date field
+2018-03-10 19:44:09 INFO Waiting for the date picker to appear
+2018-03-10 19:44:09 INFO Searching for Octoberand selecting dates of departure and arrival
+2018-03-10 19:44:09 INFO Clicking the next button until finding the searched month
+2018-03-10 19:44:11 INFO Selecting the intended dates
+2018-03-10 19:44:12 INFO Increasing the number of adults
+2018-03-10 19:44:12 INFO Opening the form with the number of adults
+2018-03-10 19:44:12 INFO Increasing the number of adults to 2
+2018-03-10 19:44:13 INFO Closing the form
+2018-03-10 19:44:13 INFO Submitting the form
+2018-03-10 19:44:26 INFO Switching to the correct browser window
+2018-03-10 19:44:26 INFO Waiting for page to load before returning the correct one
+2018-03-10 19:44:26 INFO Waiting for the progress bar to disappear
+2018-03-10 19:44:38 INFO Choosing non stop flights
+2018-03-10 19:44:38 INFO Waiting for the search results page to load
+2018-03-10 19:44:38 INFO Unchecking one stop checkbox
+2018-03-10 19:44:40 INFO Unchecking two stops checkbox
+2018-03-10 19:44:40 INFO Waiting for the page to update according to the chosen filters
+2018-03-10 19:44:40 INFO Modifying flight duration
+2018-03-10 19:44:41 INFO Modifying flight duration
+2018-03-10 19:44:42 INFO Waiting for the page to update according to the chosen duration
+2018-03-10 19:44:43 INFO Sorting the flight by cheapest
+2018-03-10 19:44:43 INFO Opening sorting drop-down
+2018-03-10 19:45:20 INFO Setting the origin to Moscow
+2018-03-10 19:45:20 INFO Clicking in the origin field and clearing it
+2018-03-10 19:45:21 INFO Sending Moscowas origin name
+2018-03-10 19:45:21 INFO Waiting for the dropdown to appear
+2018-03-10 19:45:21 INFO Choosing the origin and all airports
+2018-03-10 19:45:21 INFO Setting the destination to Tokyo
+2018-03-10 19:45:21 INFO Clicking in the destination field and clearing it
+2018-03-10 19:45:21 INFO Sending Tokyoas destination name
+2018-03-10 19:45:21 INFO Waiting for the dropdown to appear
+2018-03-10 19:45:22 INFO Choosing the destination and all airports
+2018-03-10 19:45:22 INFO Choosing the dates of departure and arrival
+2018-03-10 19:45:22 INFO Clicking in the departure date field
+2018-03-10 19:45:22 INFO Waiting for the date picker to appear
+2018-03-10 19:45:22 INFO Searching for Octoberand selecting dates of departure and arrival
+2018-03-10 19:45:22 INFO Clicking the next button until finding the searched month
+2018-03-10 19:45:24 INFO Selecting the intended dates
+2018-03-10 19:45:25 INFO Increasing the number of adults
+2018-03-10 19:45:25 INFO Opening the form with the number of adults
+2018-03-10 19:45:25 INFO Increasing the number of adults to 2
+2018-03-10 19:45:26 INFO Closing the form
+2018-03-10 19:45:26 INFO Submitting the form
+2018-03-10 19:45:26 INFO Switching to the correct browser window
+2018-03-10 19:45:27 INFO Waiting for page to load before returning the correct one
+2018-03-10 19:45:34 INFO Waiting for the progress bar to disappear
+2018-03-10 19:45:53 INFO Choosing non stop flights
+2018-03-10 19:45:53 INFO Waiting for the search results page to load
+2018-03-10 19:45:53 INFO Unchecking one stop checkbox
+2018-03-10 19:45:54 INFO Unchecking two stops checkbox
+2018-03-10 19:45:55 INFO Waiting for the page to update according to the chosen filters
+2018-03-10 19:45:55 INFO Modifying flight duration
+2018-03-10 19:45:55 INFO Modifying flight duration
+2018-03-10 19:45:57 INFO Waiting for the page to update according to the chosen duration
+2018-03-10 19:45:57 INFO Sorting the flight by cheapest
+2018-03-10 19:45:58 INFO Opening sorting drop-down
+2018-03-10 19:45:58 INFO Sorting the results by cheapest
+2018-03-10 19:45:59 INFO Getting the cheapest flight in the results

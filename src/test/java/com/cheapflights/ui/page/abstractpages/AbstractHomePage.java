@@ -2,8 +2,7 @@ package com.cheapflights.ui.page.abstractpages;
 
 import com.cheapflights.ui.page.factory.SearchPageFactory;
 
-import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
+import com.cheapflights.ui.utils.BrowserUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -21,6 +20,7 @@ public abstract class AbstractHomePage {
 
     public AbstractHomePage(WebDriver driver) {
         this.driver = driver;
+
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(this.driver)), this);
     }
 
@@ -35,6 +35,8 @@ public abstract class AbstractHomePage {
 
     private static By logoXpath = By.xpath("//div[contains(@class, 'logo')]//a[@href='/']");
 
+    protected Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
+
     public abstract AbstractHomePage chooseOrigin(String from);
 
     public abstract AbstractHomePage chooseDestination(String to);
@@ -44,18 +46,18 @@ public abstract class AbstractHomePage {
     public abstract AbstractHomePage increaseNumberOfAdults(int number);
 
     public AbstractSearchPage submitForm() {
-        LoggerUtil.info("Submitting the form");
-        submitButton.click();
+        logger.debug("Submitting the form");
+        BrowserUtils.highlightElement(driver, submitButton).click();
 
-        LoggerUtil.info("Switching to the correct browser window");
+        logger.debug("Switching to the correct browser window");
         String parentWindow = driver.getWindowHandle();
         for (String childWindow : driver.getWindowHandles()) {
             if (childWindow != parentWindow) {
                 driver.switchTo().window(childWindow);
             }
         }
-        LoggerUtil.info("Waiting for page to load before returning the correct one");
-        WebDriverToolsDecorator.waitForVisibilityFluently(driver, driver.findElement(logoXpath), 40, 5);
+        logger.debug("Waiting for page to load before returning the correct one");
+        BrowserUtils.waitForVisibilityFluently(driver, driver.findElement(logoXpath), 40, 5);
         return SearchPageFactory.getCorrectPage(driver);
     }
 

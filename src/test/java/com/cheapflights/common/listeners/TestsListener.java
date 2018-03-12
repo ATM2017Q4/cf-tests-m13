@@ -1,13 +1,18 @@
 package com.cheapflights.common.listeners;
 
+import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
+import com.cheapflights.ui.utils.BrowserUtils;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.util.logging.Logger;
 
 public class TestsListener implements ITestListener {
-    protected Logger logger = Logger.getLogger(this.getClass().getName());
+
+    private Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
+
 
     public void onTestStart(ITestResult iTestResult) {
 
@@ -15,10 +20,13 @@ public class TestsListener implements ITestListener {
 
     public void onTestSuccess(ITestResult iTestResult) {
         logger.info(getTestMethodName(iTestResult) + " passed.");
+        BrowserUtils.takeScreenshot(AbstractSearchPage.getDriver());
     }
 
     public void onTestFailure(ITestResult iTestResult) {
-        logger.info("The execution of the test " + getTestMethodName(iTestResult) + " failed.");
+        logger.info("The execution of the test " + getTestMethodName(iTestResult) + " failed. Please, see the screenshot for more info.");
+        BrowserUtils.takeScreenshot(AbstractSearchPage.getDriver());
+
     }
 
     public void onTestSkipped(ITestResult iTestResult) {

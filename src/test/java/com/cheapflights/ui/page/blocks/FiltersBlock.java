@@ -1,14 +1,13 @@
 package com.cheapflights.ui.page.blocks;
 
+import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 
-import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
+import com.cheapflights.ui.utils.BrowserUtils;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
@@ -47,44 +46,54 @@ public class FiltersBlock extends HtmlElement {
 
     private SortDropDownBlock sortDropDownBlock;
 
+    private Logger logger = LogManager.getLogger();
+
+    private WebDriver driver = AbstractHomePage.getDriver();
+
     public void chooseNonStopFlights() {
-        LoggerUtil.info("Waiting for the search results page to load");
-        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-        LoggerUtil.info("Unchecking one stop checkbox");
-        oneStop.click();
-        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+        logger.debug("Waiting for the search results page to load");
+        BrowserUtils.waitForJSandJQueryToLoad(driver);
+
+        logger.debug("Unchecking one stop checkbox");
+        BrowserUtils.click(driver, oneStop);
+
+        BrowserUtils.waitForJSandJQueryToLoad(driver);
         try {
-            LoggerUtil.info("Unchecking two stops checkbox");
-            twoStops.click();
-            LoggerUtil.info("Waiting for the page to update according to the chosen filters");
+            logger.debug("Unchecking two stops checkbox");
+            BrowserUtils.click(driver, twoStops);
+            logger.debug("Waiting for the page to update according to the chosen filters");
         } catch (NoSuchElementException e) {
-            WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-            LoggerUtil.error("There are no flights with 2 or more stops");
+            BrowserUtils.waitForJSandJQueryToLoad(driver);
+            logger.error("There are no flights with 2 or more stops");
         }
     }
 
     public void modifyDuration(int divider, int multiplier) {
         //Here Javascript is used as a workaround as moveToElement doesn't scroll the element into view in ForeFox and MoveTargetOutOfBoundsException is thrown
         //https://github.com/mozilla/geckodriver/issues/776
-        ((JavascriptExecutor) AbstractSearchPage.getDriver()).executeScript("arguments[0].scrollIntoView(true);", slider);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", slider);
         Dimension size = progress.getSize();
         int sliderWidth = size.getWidth();
-        LoggerUtil.info("Modifying flight duration");
-        Actions builder = new Actions(AbstractSearchPage.getDriver());
-        builder.moveToElement(slider).click()
+
+        logger.debug("Modifying flight duration");
+        Actions builder = new Actions(driver);
+
+        builder.moveToElement(slider)
+                .click()
                 .dragAndDropBy
                         (slider, -((sliderWidth / divider) * multiplier), 0)
                 .build()
                 .perform();
-        LoggerUtil.info("Waiting for the page to update according to the chosen duration");
-        WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+        logger.debug("Waiting for the page to update according to the chosen duration");
+        BrowserUtils.waitForJSandJQueryToLoad(driver);
 
     }
 
     public void sortByCheapest() {
         if (!(sortSectionValue.getText().equals("Cheapest"))) {
-            LoggerUtil.info("Opening sorting drop-down");
-            sortSection.click();
+            logger.debug("Opening sorting drop-down");
+            BrowserUtils.click(driver, sortSection);
+            BrowserUtils.waitForVisibilityFluently(AbstractSearchPage.getDriver(), sortDropDownBlock, 10, 1);
             sortDropDownBlock.sortByCheapest();
         }
 

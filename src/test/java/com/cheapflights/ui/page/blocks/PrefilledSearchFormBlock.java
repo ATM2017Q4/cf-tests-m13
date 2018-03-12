@@ -2,8 +2,7 @@ package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 
-import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
+import com.cheapflights.ui.utils.BrowserUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +14,6 @@ import ru.yandex.qatools.htmlelements.element.Button;
 @Name("Search Form")
 @FindBy(xpath = "//div[@class=\"searchFormWrapper \"]")
 public class PrefilledSearchFormBlock extends BaseSearchFormBlock {
-
-    private WebDriver driver = AbstractHomePage.getDriver();
 
     @Name("Origin typeahead dropdown")
     @FindBy(xpath = "//div[contains(@id, 'origin-smartbox-dropdown')]")
@@ -48,54 +45,64 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock {
 
     private DatePickerBlock datePickerBlock;
 
+    private WebDriver driver = AbstractHomePage.getDriver();
+
     @Override
     public void searchOrigin(String from) {
-        LoggerUtil.info("Clicking in the origin field and clearing it");
+        logger.debug("Clicking in the origin field and clearing it");
+        BrowserUtils.highlightElement(driver, origin);
         origin.click();
         origin.clear();
 
-        LoggerUtil.info("Sending " + from + "as origin name");
+        logger.debug("Sending " + from + "as origin name");
         origin.sendKeys(from);
+        logger.debug("Waiting for the dropdown to appear");
+        BrowserUtils.waitForJSandJQueryToLoad(driver);
 
-        LoggerUtil.info("Waiting for the dropdown to appear");
-        WebDriverToolsDecorator.waitForVisibilityFluently(driver, originOptions, 2, 1);
-
-        LoggerUtil.info("Choosing the origin and all airports");
+        logger.debug("Choosing the origin and all airports");
         origin.sendKeys(Keys.ENTER);
+        BrowserUtils.unhighlightElement(driver, origin);
     }
 
     @Override
     public void searchDestination(String to) {
-        LoggerUtil.info("Clicking in the destination field and clearing it");
+        logger.debug("Clicking in the destination field and clearing it");
+        BrowserUtils.highlightElement(driver, destination);
         destination.click();
-        LoggerUtil.info("Sending " + to + "as destination name");
+
+        logger.debug("Sending " + to + "as destination name");
         destination.sendKeys(to);
-        LoggerUtil.info("Waiting for the dropdown to appear");
-        WebDriverToolsDecorator.waitForVisibilityFluently(driver, destinationOptions, 2, 1);
-        LoggerUtil.info("Choosing the destination and all airports");
+
+        logger.debug("Waiting for the dropdown to appear");
+        BrowserUtils.waitForVisibilityFluently(driver, destinationOptions, 2, 1);
+
+        logger.debug("Choosing the destination and all airports");
         destination.sendKeys(Keys.ENTER);
+        BrowserUtils.unhighlightElement(driver, destination);
     }
 
     @Override
     public void searchDates(String month, String startDate, String endDate) {
-        LoggerUtil.info("Clicking in the departure date field");
-        departureDateField.click();
-        LoggerUtil.info("Waiting for the date picker to appear");
-        WebDriverToolsDecorator.waitForVisibilityFluently(driver, datePicker, 10, 1);
-        LoggerUtil.info("Searching for " + month + "and selecting dates of departure and arrival");
+        logger.debug("Clicking in the departure date field");
+        BrowserUtils.click(driver, departureDateField);
+
+        logger.debug("Waiting for the date picker to appear");
+        BrowserUtils.waitForVisibilityFluently(driver, datePicker, 10, 1);
+
+        logger.debug("Searching for " + month + "and selecting dates of departure and arrival");
         datePickerBlock.searchDates(month, startDate, endDate);
     }
 
     @Override
     public void increaseNumberOfAdults(int number) {
-        LoggerUtil.info("Opening the form with the number of adults");
-        travellersNumber.click();
-        LoggerUtil.info("Increasing the number of adults to " + number);
+        logger.debug("Opening the form with the number of adults");
+        BrowserUtils.click(driver, travellersNumber);
+        logger.debug("Increasing the number of adults to " + number);
         for (int i = 1; i < number; i++) {
-            adultsPlus.click();
+            BrowserUtils.click(driver, adultsPlus);
         }
-        LoggerUtil.info("Closing the form");
-        closeButton.click();
+        logger.debug("Closing the form");
+        BrowserUtils.click(driver, closeButton);
     }
 
 }

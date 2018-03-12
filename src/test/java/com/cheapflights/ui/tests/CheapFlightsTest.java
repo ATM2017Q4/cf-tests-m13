@@ -6,9 +6,14 @@ import com.cheapflights.ui.entities.TravelInfo;
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 import com.cheapflights.ui.page.factory.HomePageFactory;
 import com.cheapflights.ui.page.factory.SearchPageFactory;
+import com.cheapflights.ui.utils.BrowserUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -22,12 +27,14 @@ public class CheapFlightsTest {
     private final String url = "https://cheapflights.com/";
     private TravelInfo travelInfo;
 
-    public CheapFlightsTest(TravelInfo travelInfo){
-        this.travelInfo=travelInfo;
+    public CheapFlightsTest(TravelInfo travelInfo) {
+        this.travelInfo = travelInfo;
     }
+    protected Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
 
     @BeforeClass(alwaysRun = true)
     public void launchBrowser() {
+        logger.info("Launching the browser");
         AbstractWebDriver instance = DriverFactory.getDriverFromFactory("firefox");
         driver = instance.getDriver();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -37,12 +44,14 @@ public class CheapFlightsTest {
 
     @BeforeClass(dependsOnMethods = "launchBrowser", description = "Add implicit wait and maximize window", alwaysRun = true)
     public void openUrl() {
+        logger.info("Opening the URL");
         driver.get(url);
 
     }
 
     @Test(description = "Fill in form and get the cheapest flight")
     public void chooseTheCheapestFlight() {
+        logger.info("Starting the test");
         HomePageFactory pageFactory = new HomePageFactory(driver);
 
         homePage = pageFactory.getCorrectPage(driver);
@@ -59,8 +68,18 @@ public class CheapFlightsTest {
 
     }
 
+    @AfterMethod
+    public void tearDown(ITestResult iTestResult) {
+        if (ITestResult.FAILURE == iTestResult.getStatus()) {
+            logger.info("The test execution failed. The screenshot was saved in ./target/screenshots");
+            BrowserUtils.takeScreenshot(driver);
+
+        }
+    }
+
     @AfterClass(description = "Close browser", alwaysRun = true)
     public void tearDown() {
+        logger.info("Closing the browser");
         driver.quit();
     }
 

@@ -3,8 +3,7 @@ package com.cheapflights.ui.page.pageobjects;
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.blocks.FiltersBlock;
 
-import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
+import com.cheapflights.ui.utils.BrowserUtils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -25,53 +24,48 @@ public class FirstFlightSearchPage extends AbstractSearchPage {
 
     private By loadComplete = By.xpath("//div[@class='resultsContainer']/div[contains(@id, 'cover')]");
 
+    private By overlay = By.xpath("//div[@class=\"current-search\"]");
+
     private static String cheapestFlightXpath = "(//div[@class='above-button']//a[@class='booking-link']/span[@class='price option-text'])[1]";
 
 
     @Override
     public FirstFlightSearchPage chooseNonStopFlights() {
-        try {
-            LoggerUtil.info("Waiting for the progress bar to disappear");
-
-            driver.findElement(By.xpath("//body")).sendKeys(Keys.ESCAPE);
-            WebDriverToolsDecorator.waitForInvisibilityExplicitly(driver, progressBar, 100);
-        } catch (org.openqa.selenium.TimeoutException e) {
-            LoggerUtil.error("Driver was unable to locate the element during the specified amount of time", e);
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            LoggerUtil.error("Driver was not able to find the element by the specified locator." + e);
-        } finally {
-
-            LoggerUtil.info("Choosing non stop flights");
-            WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-
-            filtersBlock.chooseNonStopFlights();
-        }
+        BrowserUtils.waitForVisibilityFluently(driver, driver.findElement(overlay), 15, 2);
+        driver.findElement(By.xpath("//body")).sendKeys(Keys.ESCAPE);
+        //logger.info("Waiting for the progress bar to disappear");
+        BrowserUtils.waitForInvisibilityExplicitly(driver, progressBar, 100);
+        logger.info("Choosing non stop flights");
+        BrowserUtils.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+        filtersBlock.chooseNonStopFlights();
         return this;
     }
 
     @Override
     public FirstFlightSearchPage modifyDuration(int divider, int multiplier) {
-        LoggerUtil.info("Modifying flight duration");
+        logger.info("Modifying flight duration");
         filtersBlock.modifyDuration(divider, multiplier);
+        BrowserUtils.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
         return this;
     }
 
     @Override
     public FirstFlightSearchPage sortByCheapest() {
-        LoggerUtil.info("Sorting the flight by cheapest");
+        logger.info("Sorting the flight by cheapest");
         filtersBlock.sortByCheapest();
-        WebDriverToolsDecorator.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
+        BrowserUtils.waitForAttributeToBe(driver, loadComplete, "class", "resultsListCover tl", 20);
         return this;
     }
 
     @Override
     public int getCheapestFlight() {
-        LoggerUtil.info("Getting the cheapest flight in the results");
+        logger.info("Getting the cheapest flight in the results");
         String[] price;
         int sum;
         String cheapestFlight = driver.findElement(By.xpath(cheapestFlightXpath)).getText();
         price = cheapestFlight.split("\\$");
         sum = Integer.parseInt(price[1]);
+        BrowserUtils.highlightElement(driver, driver.findElement(By.xpath(cheapestFlightXpath)));
         return sum;
     }
 

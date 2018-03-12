@@ -2,9 +2,8 @@ package com.cheapflights.ui.page.pageobjects;
 
 import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 
-import com.cheapflights.ui.utils.LoggerUtil;
-import com.cheapflights.ui.utils.webdrivertools.WebDriverToolsDecorator;
 
+import com.cheapflights.ui.utils.BrowserUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -50,18 +49,18 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
     @Override
     public SecondFlightSearchPage chooseNonStopFlights() {
         try {
-            LoggerUtil.info("Waiting for the search results page to load");
-            WebDriverToolsDecorator.waitForVisibilityFluently(driver, cheapestFlight, 300, 10);
+            logger.debug("Waiting for the search results page to load");
+            BrowserUtils.waitForVisibilityFluently(driver, cheapestFlight, 300, 10);
         } catch (org.openqa.selenium.NoSuchElementException e) {
-            LoggerUtil.error("Driver was unable to locate the element: either the page didn't load properly or the element doesn't exist");
-            WebDriverToolsDecorator.waitForVisibilityFluently(driver, cheapestFlight, 150, 10);
+            logger.error("Driver was unable to locate the element: either the page didn't load properly or the element doesn't exist");
+            BrowserUtils.waitForVisibilityFluently(driver, cheapestFlight, 150, 10);
         } finally {
-            LoggerUtil.info("Opening stops filter tab");
+            logger.debug("Opening stops filter tab");
             stopsFilter.click();
-            WebDriverToolsDecorator.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
-            LoggerUtil.info("Unchecking one stop checkbox");
+            BrowserUtils.waitForJSandJQueryToLoad(AbstractSearchPage.getDriver());
+            logger.debug("Unchecking one stop checkbox");
             oneStop.click();
-            LoggerUtil.info("Unchecking multi stops checkbox");
+            logger.debug("Unchecking multi stops checkbox");
             multiStops.click();
         }
         return this;
@@ -69,12 +68,12 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     @Override
     public SecondFlightSearchPage modifyDuration(int divider, int multiplier) {
-        LoggerUtil.info("Opening duration tab");
+        logger.debug("Opening duration tab");
         durationFilter.click();
         Dimension size = progress.getSize();
         int sliderWidth = size.getWidth();
         Actions builder = new Actions(driver);
-        LoggerUtil.info("Modifying flight duration");
+        logger.debug("Modifying flight duration");
         builder
                 .dragAndDropBy
                         (slider, -((sliderWidth / divider) * multiplier), 0)
@@ -85,15 +84,15 @@ public class SecondFlightSearchPage extends AbstractSearchPage {
 
     @Override
     public void closeFilters() {
-        LoggerUtil.info("Closing filters tab");
+        logger.debug("Closing filters tab");
         closeButton.click();
-        LoggerUtil.info("Waiting for page to update in accordance with the chosen filters");
-        WebDriverToolsDecorator.waitForInvisibilityExplicitly(driver, updateIndicator, 10);
+        logger.debug("Waiting for page to update in accordance with the chosen filters");
+        BrowserUtils.waitForInvisibilityExplicitly(driver, updateIndicator, 10);
     }
 
     @Override
     public int getCheapestFlight() {
-        LoggerUtil.info("Finding the element with the ");
+        logger.debug("Finding the element with the ");
         String cheapestFlight = driver.findElement(By.xpath(cheapestFlightXpath)).getText();
         int sum = Integer.parseInt(cheapestFlight);
         return sum;

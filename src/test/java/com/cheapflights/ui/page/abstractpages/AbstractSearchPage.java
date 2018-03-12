@@ -12,6 +12,8 @@ public abstract class AbstractSearchPage {
 
     protected static WebDriver driver;
 
+    protected Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
+
     public AbstractSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(this.driver)), this);

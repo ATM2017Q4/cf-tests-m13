@@ -2,11 +2,12 @@ package com.cheapflights.ui.page.blocks;
 
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 
-import com.cheapflights.ui.utils.LoggerUtil;
-
+import com.cheapflights.ui.utils.BrowserUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import ru.yandex.qatools.htmlelements.annotations.Name;
@@ -34,24 +35,32 @@ public class DatePickerBlock extends HtmlElement {
     @FindBy(xpath = "(//div[@class='weeks'])[3]//div[@class='day']")
     private List<WebElement> dates;
 
+    @Name("Return date field")
+    @FindBy(xpath = "//div[contains(text(), \"Return\")]")
+    private WebElement returnDateField;
+
+    private Logger logger = LogManager.getLogger();
+
+    private WebDriver driver = AbstractHomePage.getDriver();
+
     public void searchDates(String month, String startDate, String endDate) {
-        LoggerUtil.info("Clicking the next button until finding the searched month");
+        logger.debug("Clicking the next button until finding the searched month");
         while (!(isVisible(monthColumn, monthName, month))) {
-            nextArrow.click();
+            BrowserUtils.click(driver, nextArrow);
+
         }
-        LoggerUtil.info("Selecting the intended dates");
+        logger.debug("Selecting the intended dates");
         By endDateLocator = By.xpath("(//div[@class='weeks'])[3]//div[contains(text(), '" + endDate + "')]");
         List<WebElement> duration = dates;
         for (WebElement day : duration) {
             if (day.getText().equals(startDate)) {
-                Actions chooser = new Actions(AbstractHomePage.getDriver());
-                chooser.click(day)
-                        .click(AbstractHomePage.getDriver().findElement(By.xpath("//div[contains(text(), \"Return\")]")))
-                        .click(AbstractHomePage.getDriver().findElement(endDateLocator))
-                        .build().perform();
+                BrowserUtils.click(driver, day);
                 break;
             }
         }
+        BrowserUtils.click(driver, returnDateField);
+        BrowserUtils.click(driver, driver.findElement(endDateLocator));
+
     }
 
     public boolean isVisible(WebElement monthColumn, WebElement monthName, String text) {
