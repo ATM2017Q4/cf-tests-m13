@@ -1,9 +1,6 @@
 package com.cheapflights.common.listeners;
 
-import com.cheapflights.common.driver.AbstractWebDriver;
-import com.cheapflights.common.driver.DriverFactory;
-import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
+import com.cheapflights.ui.tests.CheapFlightsTest;
 import com.cheapflights.ui.utils.BrowserUtils;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -27,8 +24,9 @@ public class TestsListener implements ITestListener {
     }
 
     public void onTestFailure(ITestResult iTestResult) {
-        logger.info("The test " + getTestMethodName(iTestResult) + " failed. The screenshot was saved in ./target/screenshots");
-        BrowserUtils.takeScreenshot((WebDriver) DriverFactory.getDriverFromFactory("firefox"));
+        Object currentClass = iTestResult.getInstance();
+        WebDriver driver = ((CheapFlightsTest)currentClass).getDriver();
+        BrowserUtils.takeScreenshot(driver);
 
     }
 

@@ -24,14 +24,6 @@
                 <version>2.21.0</version>
                 <configuration>
 
-                    <!--&lt;!&ndash; Uncomment it if you don't want your build to be failed in case of test errors &ndash;&gt;-->
-                    <!--<testFailureIgnore>true</testFailureIgnore>-->
-                    <!--<suiteXmlFiles>-->
-                    <!--<xmlFile>suites/logging_tests.xml</xmlFile>-->
-                    <!--</suiteXmlFiles>-->
-                    <!--&lt;!&ndash; ADD working directory to get TestNG know we to find suite files &ndash;&gt;-->
-                    <!--<workingDirectory>./</workingDirectory>-->
-
                     <properties>
                         <property>
                             <name>usedefaultlisteners</name>

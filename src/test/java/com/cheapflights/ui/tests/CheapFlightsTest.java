@@ -2,19 +2,18 @@ package com.cheapflights.ui.tests;
 
 import com.cheapflights.common.driver.AbstractWebDriver;
 import com.cheapflights.common.driver.DriverFactory;
+
 import com.cheapflights.ui.entities.TravelInfo;
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
-import com.cheapflights.ui.page.abstractpages.AbstractSearchPage;
 import com.cheapflights.ui.page.factory.HomePageFactory;
 import com.cheapflights.ui.page.factory.SearchPageFactory;
-import com.cheapflights.ui.utils.BrowserUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+
 import org.testng.Assert;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -22,6 +21,8 @@ import java.util.concurrent.TimeUnit;
 
 
 public class CheapFlightsTest {
+
+
 
     private WebDriver driver;
     private AbstractHomePage homePage;
@@ -70,11 +71,6 @@ public class CheapFlightsTest {
 
     }
 
-    @AfterMethod
-    public void tearDown(ITestResult iTestResult) {
-        logger.info("The test failed. The screenshot was saved in ./target/screenshots");
-        BrowserUtils.takeScreenshot(driver);
-    }
 
     @AfterClass(description = "Close browser", alwaysRun = true)
     public void tearDown() {
@@ -82,4 +78,7 @@ public class CheapFlightsTest {
         driver.quit();
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
 }
