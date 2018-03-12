@@ -1,8 +1,10 @@
 package com.cheapflights.ui.utils;
 
 import org.apache.commons.io.FileUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class BrowserUtils {
 
@@ -20,7 +22,8 @@ public class BrowserUtils {
 
     public static void waitForVisibilityFluently(WebDriver driver, WebElement element, int timeout, int poll) {
         try {
-            new FluentWait(driver).withTimeout(timeout, TimeUnit.SECONDS).pollingEvery(poll, TimeUnit.SECONDS)
+            new FluentWait(driver).withTimeout(Duration.ofSeconds(timeout))
+                    .pollingEvery(Duration.ofSeconds(poll))
                     .ignoring(org.openqa.selenium.NoSuchElementException.class)
                     .until(ExpectedConditions.visibilityOf(element));
         } catch (org.openqa.selenium.TimeoutException e) {

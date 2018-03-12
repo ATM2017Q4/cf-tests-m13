@@ -52,8 +52,6 @@
     </repositories>
 
     <dependencies>
-
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -64,13 +62,11 @@
             <artifactId>selenium-java</artifactId>
             <version>3.11.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/args4j/args4j -->
         <dependency>
             <groupId>args4j</groupId>
             <artifactId>args4j</artifactId>
             <version>2.33</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.htmlelements/htmlelements-java -->
         <dependency>
             <groupId>ru.yandex.qatools.htmlelements</groupId>
             <artifactId>htmlelements-java</artifactId>
