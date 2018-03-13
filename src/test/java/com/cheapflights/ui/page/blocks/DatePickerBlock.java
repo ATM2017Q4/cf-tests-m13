@@ -59,6 +59,7 @@ public class DatePickerBlock extends HtmlElement {
             }
         }
         BrowserUtils.click(driver, returnDateField);
+        BrowserUtils.waitForVisibilityFluently(driver, this, 10, 1);
         BrowserUtils.click(driver, driver.findElement(endDateLocator));
 
     }
