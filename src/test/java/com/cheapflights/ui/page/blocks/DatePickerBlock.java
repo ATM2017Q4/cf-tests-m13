@@ -6,6 +6,7 @@ import com.cheapflights.ui.utils.BrowserUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -59,6 +60,7 @@ public class DatePickerBlock extends HtmlElement {
             }
         }
         BrowserUtils.click(driver, returnDateField);
+        ((JavascriptExecutor)driver).executeScript("window.focus()");
         BrowserUtils.waitForVisibilityFluently(driver, this, 10, 1);
         BrowserUtils.click(driver, driver.findElement(endDateLocator));
 

@@ -3,6 +3,7 @@ package com.cheapflights.ui.page.blocks;
 import com.cheapflights.ui.page.abstractpages.AbstractHomePage;
 
 import com.cheapflights.ui.utils.BrowserUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -85,7 +86,7 @@ public class PrefilledSearchFormBlock extends BaseSearchFormBlock {
     public void searchDates(String month, String startDate, String endDate) {
         logger.debug("Clicking in the departure date field");
         BrowserUtils.click(driver, departureDateField);
-
+        ((JavascriptExecutor)driver).executeScript("window.focus()");
         logger.debug("Waiting for the date picker to appear");
         BrowserUtils.waitForVisibilityFluently(driver, datePicker, 10, 1);
 

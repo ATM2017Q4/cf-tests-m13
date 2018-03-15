@@ -27,9 +27,9 @@ public class BrowserUtils {
                     .ignoring(org.openqa.selenium.NoSuchElementException.class)
                     .until(ExpectedConditions.visibilityOf(element));
         } catch (org.openqa.selenium.TimeoutException e) {
-            logger.error("WebDriver failed to find "+ element.toString() + " within the specified time frame", e);
+            logger.error("WebDriver failed to find " + element.toString() + " within the specified time frame", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("WebDriver was unable to locate  "+ element.toString(), e);
+            logger.error("WebDriver was unable to locate  " + element.toString(), e);
         }
 
     }
@@ -38,9 +38,9 @@ public class BrowserUtils {
         try {
             new WebDriverWait(driver, timeout).until(ExpectedConditions.invisibilityOf(element));
         } catch (org.openqa.selenium.TimeoutException e) {
-            logger.error("WebDriver failed to find "+ element.toString() + " within the specified time frame", e);
+            logger.error("WebDriver failed to find " + element.toString() + " within the specified time frame", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("The driver was unable to locate "+ element.toString(), e);
+            logger.error("The driver was unable to locate " + element.toString(), e);
         }
     }
 
@@ -48,9 +48,9 @@ public class BrowserUtils {
         try {
             new WebDriverWait(driver, timeout).until(ExpectedConditions.attributeToBe(by, attribute, value));
         } catch (org.openqa.selenium.TimeoutException e) {
-            logger.error("WebDriver failed to find the element with "+ by.toString() + " locator within the specified time frame", e);
+            logger.error("WebDriver failed to find the element with " + by.toString() + " locator within the specified time frame", e);
         } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("The driver was unable to locate with "+ by.toString() + " locator", e);
+            logger.error("The driver was unable to locate with " + by.toString() + " locator", e);
         }
     }
 
