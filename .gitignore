@@ -22,6 +22,7 @@ target
 #drivers
 chromedriver
 geckodriver
+chromedriver_mac64.zip
 
 #jar files
 *.jar
