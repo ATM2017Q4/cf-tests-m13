@@ -1,0 +1,17 @@
+{
+    "origin": "Vienna",
+    "destination": "London",
+    "departureDates": {
+      "day": 1,
+      "month": "November",
+      "year": 2018
+    },
+    "returnDates": {
+      "day": 17,
+      "month": "November",
+      "year": 2018
+    },
+    "numberOfAdults": 1,
+    "acceptablePrice": 200
+
+}

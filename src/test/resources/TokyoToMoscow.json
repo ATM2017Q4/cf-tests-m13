@@ -1,0 +1,17 @@
+{
+    "origin": "Moscow",
+    "destination": "Tokyo",
+    "departureDates": {
+      "day": 7,
+      "month": "October",
+      "year": 2018
+    },
+    "returnDates": {
+      "day": 20,
+      "month": "October",
+      "year": 2018
+    },
+    "numberOfAdults": 2,
+    "acceptablePrice": 700
+
+}
